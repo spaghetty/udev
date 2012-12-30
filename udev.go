@@ -388,6 +388,6 @@ func (e Enumerate) FirstQueued() ListEntry {
 	return ListEntry{C.udev_queue_get_queued_list_entry(e.ptr)}
 }
 
-func (e Enumerate) FirstFailed() ListEntry {
-	return ListEntry{C.udev_queue_get_failed_list_entry(e.ptr)}
-}
+// func (e Enumerate) FirstFailed() ListEntry {
+// 	return ListEntry{C.udev_queue_get_failed_list_entry(e.ptr)}
+// }
