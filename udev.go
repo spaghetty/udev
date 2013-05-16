@@ -42,26 +42,14 @@ func (u Udev) Unref() {
 	C.udev_unref(u.ptr)
 }
 
-/*
-func (u Udev) SetLogger() {
-	C.udev_set_log_fn(u.ptr)
-}
-
-func (u Udev) GetLogPriority() {
-	C.udev_get_log_priority(u.ptr)
-}
-
-func (u Udev) SetLogPriority() {
-	C.udev_set_log_priority(u.ptr)
-}
-*/
-
 func (u Udev) SysPath() string {
-	return C.GoString(C.udev_get_sys_path(u.ptr))
+	return "/sys"
+	//return C.GoString(C.udev_get_sys_path(u.ptr))
 }
 
 func (u Udev) DevPath() string {
-	return C.GoString(C.udev_get_dev_path(u.ptr))
+	return "/dev"
+	//return C.GoString(C.udev_get_dev_path(u.ptr))
 }
 
 func (d Device) Udev() Udev {
@@ -159,9 +147,9 @@ func NewMonitorFromNetlink(u Udev, name string) Monitor {
 	return Monitor{C.udev_monitor_new_from_netlink(u.ptr, C.CString(name))}
 }
 
-func NewMonitorFromSocket(u Udev, socketPath string) Monitor {
-	return Monitor{C.udev_monitor_new_from_socket(u.ptr, C.CString(socketPath))}
-}
+// func NewMonitorFromSocket(u Udev, socketPath string) Monitor {
+// 	return Monitor{C.udev_monitor_new_from_socket(u.ptr, C.CString(socketPath))}
+// }
 func (m Monitor) EnableReceiving() error {
 	err := C.udev_monitor_enable_receiving(m.ptr)
 	if err == 0 {
